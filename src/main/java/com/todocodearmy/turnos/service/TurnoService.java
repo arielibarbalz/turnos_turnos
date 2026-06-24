@@ -1,0 +1,46 @@
+package com.todocodearmy.turnos.service;
+
+import com.todocodearmy.turnos.model.Turno;
+import com.todocodearmy.turnos.repository.ITurnoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.time.LocalDate;
+import java.util.List;
+
+public class TurnoService implements ITurnoService{
+
+    @Autowired
+    private ITurnoRepository turnoRepository;
+
+    @Override
+    public List<Turno> getTurnos() {
+        return turnoRepository.findAll();
+    }
+
+    @Override
+    public void saveturno(LocalDate fecha, String tratamiento, String dniPaciente) {
+        Turno turno = new Turno();
+        turno.setFecha(fecha);
+        turno.setTratamiento(tratamiento);
+        turnoRepository.save(turno);
+    }
+
+    @Override
+    public void deleteTurno(Long id) {
+        turnoRepository.deleteById(id);
+    }
+
+    @Override
+    public Turno findTurno(long id) {
+        return turnoRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void editTurno(Long id, Turno turno) {
+        Turno turno1 = this.findTurno(id);
+        turno1.setFecha(turno.getFecha());
+        turno1.setTratamiento(turno.getTratamiento());
+        turno1.setNombrCompletoPaciente(turno.getNombrCompletoPaciente());
+        turnoRepository.save(turno1);
+    }
+}
