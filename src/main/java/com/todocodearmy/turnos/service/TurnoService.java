@@ -32,6 +32,7 @@ public class TurnoService implements ITurnoService{
         Turno turno = new Turno();
         turno.setFecha(fecha);
         turno.setTratamiento(tratamiento);
+        turno.setNombrCompletoPaciente(nombreCompletoPaciente);
         turnoRepository.save(turno);
     }
 
